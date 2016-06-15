@@ -23,14 +23,14 @@ public class PublicHolidayController {
 
     @RequestMapping("/{countryISOcode:[A-Z]{2}}")
     public ResponseEntity<String> testIfCountryIsSupported(@PathVariable("countryISOcode") final String countryISOCode) throws Exception {
-        strategyProvider.getByCountryCode(countryISOCode);
+        strategyProvider.getBetweenStrategyByCountryCode(countryISOCode);
         return new ResponseEntity<String>("OK", HttpStatus.OK);
     }
 
 
     @RequestMapping("/{countryISOcode:[A-Z]{2}}/{year:\\d{4}}")
     public List<LocalDate> getPublicHolidayForOneSpecificYear(@PathVariable("countryISOcode") final String countryISOCode, @PathVariable("year") final int year) throws Exception {
-        return strategyProvider.getByCountryCode(countryISOCode).getPublicHolidaysByYear(year);
+        return strategyProvider.getByYearStrategyByCountryCode(countryISOCode).getPublicHolidaysByYear(year);
     }
 
 
@@ -40,6 +40,6 @@ public class PublicHolidayController {
         final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyyMMdd");
         final LocalDate startDate = LocalDate.parse(start, dateTimeFormatter);
         final LocalDate endDate = LocalDate.parse(end, dateTimeFormatter);
-        return strategyProvider.getByCountryCode(countryISOCode).getPublicHolidaysBetween(startDate, endDate);
+        return strategyProvider.getBetweenStrategyByCountryCode(countryISOCode).getPublicHolidaysBetween(startDate, endDate);
     }
 }

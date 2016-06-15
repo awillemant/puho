@@ -10,13 +10,25 @@ import java.util.Map;
 public class StrategyProvider {
 
     @Autowired
-    private Map<String, AbstractBetweenStrategy> strategies;
+    private Map<String, AbstractBetweenStrategy> betweenStrategies;
+
+    @Autowired
+    private Map<String, AbstractByYearStrategy> byYearStrategies;
 
 
-    public AbstractBetweenStrategy getByCountryCode(final String countryCode) throws NotSupportedCountryException {
+    public AbstractBetweenStrategy getBetweenStrategyByCountryCode(final String countryCode) throws NotSupportedCountryException {
         final String serviceId = AbstractBetweenStrategy.PREFIX + countryCode;
-        if (strategies.containsKey(serviceId)) {
-            return strategies.get(serviceId);
+        if (betweenStrategies.containsKey(serviceId)) {
+            return betweenStrategies.get(serviceId);
+        } else {
+            throw new NotSupportedCountryException(countryCode);
+        }
+    }
+
+    public AbstractByYearStrategy getByYearStrategyByCountryCode(final String countryCode) throws NotSupportedCountryException {
+        final String serviceId = AbstractByYearStrategy.PREFIX + countryCode;
+        if (byYearStrategies.containsKey(serviceId)) {
+            return byYearStrategies.get(serviceId);
         } else {
             throw new NotSupportedCountryException(countryCode);
         }

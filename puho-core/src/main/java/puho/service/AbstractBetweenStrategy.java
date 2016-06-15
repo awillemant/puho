@@ -12,35 +12,33 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
-public abstract class AbstractBetweenStrategy {
+public abstract class AbstractBetweenStrategy extends AbstractCountryStrategy {
 
-    static final String PREFIX = "publicHolidayStrategy";
+    static final String PREFIX = "publicHolidayBetweenStrategy";
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AbstractBetweenStrategy.class);
 
 
-    public abstract List<LocalDate> getPublicHolidaysByYear(int year);
-
-
+    protected abstract AbstractByYearStrategy getByYearStrategy();
 
 
     @Cacheable("PublicHolidaysBetween")
     public Set<LocalDate> getPublicHolidaysBetween(final LocalDate start, final LocalDate end) throws WrongPeriodException {
-        LOGGER.debug("Get Public Holidays between {} and {}", start, end);
+        LOGGER.debug("Get Public Holidays for country '{}' between {} and {}", getCountryCode(), start, end);
         checkValidity(start, end);
         final Set<LocalDate> publicHolidays = new TreeSet<>();
         final List<Integer> years = getAllYearsBetweenDates(start, end);
         if (years.size() == 1) {
-            final List<LocalDate> holidaysByYear = getPublicHolidaysByYear(years.get(0));
+            final List<LocalDate> holidaysByYear = getByYearStrategy().getPublicHolidaysByYear(years.get(0));
             holidaysByYear.stream()
                     .filter(ld -> isBetween(ld, start, end))
                     .forEach(publicHolidays::add);
         } else {
-            addHolidaysForFirstYear(start, publicHolidays, getPublicHolidaysByYear(years.get(0)));
+            addHolidaysForFirstYear(start, publicHolidays, getByYearStrategy().getPublicHolidaysByYear(years.get(0)));
             for (int i = 1; i < years.size() - 1; i++) {
-                publicHolidays.addAll(getPublicHolidaysByYear(years.get(i)));
+                publicHolidays.addAll(getByYearStrategy().getPublicHolidaysByYear(years.get(i)));
             }
-            addHolidaysForLastYear(end, publicHolidays, getPublicHolidaysByYear(years.get(years.size() - 1)));
+            addHolidaysForLastYear(end, publicHolidays, getByYearStrategy().getPublicHolidaysByYear(years.get(years.size() - 1)));
         }
         return publicHolidays;
     }

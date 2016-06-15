@@ -14,7 +14,7 @@ class FrancePublicHolidayService {
     private static final Logger LOGGER = LoggerFactory.getLogger(FrancePublicHolidayService.class);
 
 
-    List<LocalDate> getPublicHolidayByYear(final int year) {
+    List<LocalDate> getPublicHolidaysByYear(final int year) {
         final List<LocalDate> holidaysByYear = new ArrayList<>();
         final LocalDate lundiPaques = getLundiPaques(year);
         final LocalDate ascension = getAscension(lundiPaques);
