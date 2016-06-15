@@ -6,7 +6,8 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.List;
 
-@Service(AbstractByYearStrategy.PREFIX + FranceByYearStrategy.COUNTRY_CODE) class FranceByYearStrategy extends AbstractByYearStrategy {
+@Service(AbstractByYearStrategy.PREFIX + FranceByYearStrategy.COUNTRY_CODE)
+public class FranceByYearStrategy extends AbstractByYearStrategy {
 
     static final String COUNTRY_CODE = "FR";
 

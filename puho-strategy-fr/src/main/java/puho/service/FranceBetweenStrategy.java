@@ -3,7 +3,8 @@ package puho.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-@Service(AbstractBetweenStrategy.PREFIX + FranceBetweenStrategy.COUNTRY_CODE) class FranceBetweenStrategy extends AbstractBetweenStrategy {
+@Service(AbstractBetweenStrategy.PREFIX + FranceBetweenStrategy.COUNTRY_CODE)
+public class FranceBetweenStrategy extends AbstractBetweenStrategy {
 
     static final String COUNTRY_CODE = "FR";
 
