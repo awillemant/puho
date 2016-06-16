@@ -8,3 +8,10 @@ A simple webservice that provides Public Holidays
 
 ### Other country support ?
 You just have to make a project very similar to the `puho-strategy-fr` one. Once it's compiled into a simple jar, you can relaunch the webservice with a new path in the `loader.path` argument.
+
+### ReST API
+Two HTTP calls are possible :
+- `GET /<COUNTRY ISO CODE>/yyyy` to get all the public holidays for a given year.
+- `GET /<COUNTRY ISO CODE>/yyyyMMdd/yyyyMMdd` to get all the public holidays between two dates.
+
+List of country ISO codes : http://www.nationsonline.org/oneworld/country_code_list.htm
