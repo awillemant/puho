@@ -9,7 +9,7 @@ import puho.service.strategy.FRBetweenStrategy;
 import puho.service.strategy.FRByYearStrategy;
 import puho.service.strategy.GBBetweenStrategy;
 import puho.service.strategy.GBByYearStrategy;
-import puho.test.TestUtils;
+import puho.test.tooling.TestUtils;
 
 import java.util.HashMap;
 import java.util.Map;

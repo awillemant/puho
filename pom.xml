@@ -23,6 +23,7 @@
         <module>puho-webservice</module>
         <module>puho-strategy-fr</module>
         <module>puho-core</module>
+        <module>puho-test-tooling</module>
     </modules>
 
     <build>
@@ -38,7 +39,6 @@
             </plugin>
         </plugins>
     </build>
-
 
 
 </project>

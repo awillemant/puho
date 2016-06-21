@@ -64,7 +64,7 @@ public class PublicHolidayControllerTests {
                 .andExpect(jsonPath("$", hasSize(11)))
                 .andExpect(jsonPath("$[*].year", contains(2016,2016,2016,2016,2016,2016,2016,2016,2016,2016,2016)))
                 .andExpect(jsonPath("$[*].monthValue", contains(1,3,5,5,5,5,7,8,11,11,12)))
-                .andExpect(jsonPath("$[*].dayOfMonth", contains(1,28,1,8,5,16,14,15,1,11,25)));
+                .andExpect(jsonPath("$[*].dayOfMonth", contains(1,28,1,5,8,16,14,15,1,11,25)));
     }
 
     @Test

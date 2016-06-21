@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -30,6 +31,7 @@ class FrancePublicHolidayService {
         holidaysByYear.add(getToussaint(year));
         holidaysByYear.add(get11Novembre(year));
         holidaysByYear.add(getNoel(year));
+        Collections.sort(holidaysByYear);
         return holidaysByYear;
     }
 
