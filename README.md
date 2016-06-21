@@ -1,6 +1,8 @@
 # puho
 A simple webservice that provides Public Holidays
 
+Travis status : [![Build Status](https://travis-ci.org/awillemant/puho.svg?branch=master)](https://travis-ci.org/awillemant/puho)
+
 ### Launch
 - go to the root of the project
 - execute a `mvn clean package`
