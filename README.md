@@ -2,6 +2,7 @@
 A simple webservice that provides Public Holidays
 
 Travis status : [![Build Status](https://travis-ci.org/awillemant/puho.svg?branch=master)](https://travis-ci.org/awillemant/puho)
+
 Codecov status : [![codecov](https://codecov.io/gh/awillemant/puho/branch/master/graph/badge.svg)](https://codecov.io/gh/awillemant/puho)
 
 ### Launch
