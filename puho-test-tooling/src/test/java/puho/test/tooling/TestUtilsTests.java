@@ -44,7 +44,7 @@ public class TestUtilsTests {
         }catch(final Exception exception){
             //THEN
             assertThat(exception).isInstanceOf(InvocationTargetException.class);
-            assertThat(((InvocationTargetException) exception).getTargetException()).isInstanceOf(RuntimeException.class);
+            assertThat(((InvocationTargetException) exception).getTargetException()).isInstanceOf(IllegalAccessException.class);
             assertThat(((InvocationTargetException) exception).getTargetException()).hasMessage("Should not be instanciated");
         }
 

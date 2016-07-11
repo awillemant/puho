@@ -8,6 +8,10 @@ import org.springframework.cache.annotation.EnableCaching;
 @EnableCaching
 public class Application {
 
+    public Application() { //NOSONAR
+    }
+
+
     public static void main(final String[] args) {
         SpringApplication.run(Application.class, args);
     }

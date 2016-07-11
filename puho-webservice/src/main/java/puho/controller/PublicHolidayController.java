@@ -6,7 +6,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import puho.exception.WrongPeriodException;
+import puho.exception.NotSupportedCountryException;
+import puho.exception.PuhoException;
 import puho.service.StrategyProvider;
 
 import java.time.LocalDate;
@@ -23,21 +24,21 @@ public class PublicHolidayController {
 
 
     @RequestMapping("")
-    public ResponseEntity<String> testIfCountryIsSupported(@PathVariable("countryISOcode") final String countryISOCode) throws Exception {
+    public ResponseEntity<String> testIfCountryIsSupported(@PathVariable("countryISOcode") final String countryISOCode) throws NotSupportedCountryException {
         strategyProvider.getBetweenStrategyByCountryCode(countryISOCode);
         return new ResponseEntity<String>("OK", HttpStatus.OK);
     }
 
 
     @RequestMapping("/{year:\\d{4}}")
-    public List<LocalDate> getPublicHolidayForOneSpecificYear(@PathVariable("countryISOcode") final String countryISOCode, @PathVariable("year") final int year) throws Exception {
+    public List<LocalDate> getPublicHolidayForOneSpecificYear(@PathVariable("countryISOcode") final String countryISOCode, @PathVariable("year") final int year) throws NotSupportedCountryException {
         return strategyProvider.getByYearStrategyByCountryCode(countryISOCode).getPublicHolidaysByYear(year);
     }
 
 
     @RequestMapping("/{start:\\d{8}}/{end:\\d{8}}")
     public Set<LocalDate> getPublicHolidayBetweenTwoDates(@PathVariable("countryISOcode") final String countryISOCode, @PathVariable("start") final String start, @PathVariable("end") final String end)
-            throws Exception, WrongPeriodException {
+            throws PuhoException {
         final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyyMMdd");
         final LocalDate startDate = LocalDate.parse(start, dateTimeFormatter);
         final LocalDate endDate = LocalDate.parse(end, dateTimeFormatter);
