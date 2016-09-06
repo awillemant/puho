@@ -32,13 +32,15 @@ public class PublicHolidayController {
 
 
     @RequestMapping("/{year:\\d{4}}")
-    public List<PublicHoliday> getPublicHolidayForOneSpecificYear(@PathVariable("countryISOcode") final String countryISOCode, @PathVariable("year") final int year) throws NotSupportedCountryException {
+    public List<PublicHoliday> getPublicHolidayForOneSpecificYear(@PathVariable("countryISOcode") final String countryISOCode, @PathVariable("year") final int year)
+            throws NotSupportedCountryException {
         return strategyProvider.getByYearStrategyByCountryCode(countryISOCode).getPublicHolidaysByYear(year);
     }
 
 
     @RequestMapping("/{start:\\d{8}}/{end:\\d{8}}")
-    public Set<PublicHoliday> getPublicHolidayBetweenTwoDates(@PathVariable("countryISOcode") final String countryISOCode, @PathVariable("start") final String start, @PathVariable("end") final String end)
+    public Set<PublicHoliday> getPublicHolidayBetweenTwoDates(@PathVariable("countryISOcode") final String countryISOCode, @PathVariable("start") final String start,
+            @PathVariable("end") final String end)
             throws PuhoException {
         final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyyMMdd");
         final LocalDate startDate = LocalDate.parse(start, dateTimeFormatter);
