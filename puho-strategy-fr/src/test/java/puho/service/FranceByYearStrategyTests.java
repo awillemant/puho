@@ -4,6 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
+import puho.pojo.PublicHoliday;
 import puho.test.tooling.TestUtils;
 
 import java.time.LocalDate;
@@ -37,20 +38,20 @@ public class FranceByYearStrategyTests {
     public void shouldReturnCorrectPuhos() throws Exception {
         //GIVEN
         //WHEN
-        final List<LocalDate> puhos = strategy.getInternalPublicHolidaysByYear(2016);
+        final List<PublicHoliday> puhos = strategy.getInternalPublicHolidaysByYear(2016);
         //THEN
-        assertThat(puhos).containsExactly(
-                LocalDate.of(2016,1,1),
-                LocalDate.of(2016,3,28),
-                LocalDate.of(2016,5,1),
-                LocalDate.of(2016,5,5),
-                LocalDate.of(2016,5,8),
-                LocalDate.of(2016,5,16),
-                LocalDate.of(2016,7,14),
-                LocalDate.of(2016,8,15),
-                LocalDate.of(2016,11,1),
-                LocalDate.of(2016,11,11),
-                LocalDate.of(2016,12,25)
+        assertThat(puhos).extracting("name","date").containsExactly(
+                tuple("Jour de l'an",LocalDate.of(2016,1,1)),
+                tuple("Lundi de Pâques",LocalDate.of(2016,3,28)),
+                tuple("Fête du travail",LocalDate.of(2016,5,1)),
+                tuple("Ascension",LocalDate.of(2016,5,5)),
+                tuple("8 Mai 1945",LocalDate.of(2016,5,8)),
+                tuple("Pentecôte",LocalDate.of(2016,5,16)),
+                tuple("Fête nationale",LocalDate.of(2016,7,14)),
+                tuple("Assomption",LocalDate.of(2016,8,15)),
+                tuple("Toussaint",LocalDate.of(2016,11,1)),
+                tuple("Armistice",LocalDate.of(2016,11,11)),
+                tuple("Noël",LocalDate.of(2016,12,25))
         );
     }
 }

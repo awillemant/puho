@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cache.annotation.Cacheable;
 import puho.exception.WrongPeriodException;
+import puho.pojo.PublicHoliday;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -23,15 +24,15 @@ public abstract class AbstractBetweenStrategy extends AbstractCountryStrategy {
 
 
     @Cacheable("PublicHolidaysBetween")
-    public Set<LocalDate> getPublicHolidaysBetween(final LocalDate start, final LocalDate end) throws WrongPeriodException {
+    public Set<PublicHoliday> getPublicHolidaysBetween(final LocalDate start, final LocalDate end) throws WrongPeriodException {
         LOGGER.debug("Get Public Holidays for country '{}' between {} and {}", getCountryCode(), start, end);
         checkValidity(start, end);
-        final Set<LocalDate> publicHolidays = new TreeSet<>();
+        final Set<PublicHoliday> publicHolidays = new TreeSet<>();
         final List<Integer> years = getAllYearsBetweenDates(start, end);
         if (years.size() == 1) {
-            final List<LocalDate> holidaysByYear = getByYearStrategy().getPublicHolidaysByYear(years.get(0));
+            final List<PublicHoliday> holidaysByYear = getByYearStrategy().getPublicHolidaysByYear(years.get(0));
             holidaysByYear.stream()
-                    .filter(ld -> isBetween(ld, start, end))
+                    .filter(publicHoliday -> isBetween(publicHoliday.getDate(), start, end))
                     .forEach(publicHolidays::add);
         } else {
             addHolidaysForFirstYear(start, publicHolidays, getByYearStrategy().getPublicHolidaysByYear(years.get(0)));
@@ -68,16 +69,16 @@ public abstract class AbstractBetweenStrategy extends AbstractCountryStrategy {
     }
 
 
-    private void addHolidaysForFirstYear(final LocalDate start, final Set<LocalDate> publicHolidays, final List<LocalDate> holidaysByYear) {
+    private void addHolidaysForFirstYear(final LocalDate start, final Set<PublicHoliday> publicHolidays, final List<PublicHoliday> holidaysByYear) {
         holidaysByYear.stream()
-                .filter(ld -> isAfterOrEqual(ld, start))
+                .filter(publicHoliday -> isAfterOrEqual(publicHoliday.getDate(), start))
                 .forEach(publicHolidays::add);
     }
 
 
-    private void addHolidaysForLastYear(final LocalDate end, final Set<LocalDate> publicHolidays, final List<LocalDate> holidaysByYear) {
+    private void addHolidaysForLastYear(final LocalDate end, final Set<PublicHoliday> publicHolidays, final List<PublicHoliday> holidaysByYear) {
         holidaysByYear.stream()
-                .filter(ld -> isBeforeOrEqual(ld, end))
+                .filter(publicHoliday -> isBeforeOrEqual(publicHoliday.getDate(), end))
                 .forEach(publicHolidays::add);
     }
 

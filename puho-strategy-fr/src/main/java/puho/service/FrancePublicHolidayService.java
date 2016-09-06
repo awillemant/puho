@@ -3,6 +3,7 @@ package puho.service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import puho.pojo.PublicHoliday;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -15,11 +16,11 @@ class FrancePublicHolidayService {
     private static final Logger LOGGER = LoggerFactory.getLogger(FrancePublicHolidayService.class);
 
 
-    List<LocalDate> getPublicHolidaysByYear(final int year) {
-        final List<LocalDate> holidaysByYear = new ArrayList<>();
-        final LocalDate lundiPaques = getLundiPaques(year);
-        final LocalDate ascension = getAscension(lundiPaques);
-        final LocalDate pentecote = getPentecote(lundiPaques);
+    List<PublicHoliday> getPublicHolidaysByYear(final int year) {
+        final List<PublicHoliday> holidaysByYear = new ArrayList<>();
+        final PublicHoliday lundiPaques = getLundiPaques(year);
+        final PublicHoliday ascension = getAscension(lundiPaques.getDate());
+        final PublicHoliday pentecote = getPentecote(lundiPaques.getDate());
         holidaysByYear.add(getJourAn(year));
         holidaysByYear.add(lundiPaques);
         holidaysByYear.add(getFeteTravail(year));
@@ -31,13 +32,13 @@ class FrancePublicHolidayService {
         holidaysByYear.add(getToussaint(year));
         holidaysByYear.add(get11Novembre(year));
         holidaysByYear.add(getNoel(year));
-        Collections.sort(holidaysByYear);
+        Collections.sort(holidaysByYear, (ph1, ph2)->ph1.getDate().compareTo(ph2.getDate()));
         return holidaysByYear;
     }
 
 
     //thanks to http://www.aveol.fr/?p=602
-    private LocalDate getLundiPaques(final int year) {
+    private PublicHoliday getLundiPaques(final int year) {
         final int a = year / 100;
         final int b = year % 100;
         final int c = (3 * (a + 25)) / 4;
@@ -53,57 +54,57 @@ class FrancePublicHolidayService {
         final int p = (g - h + m + 114) % 31;
         final int day = p + 1;
         final int month = n;
-        final LocalDate dimanchePaques = LocalDate.of(year, month, day);
-        return dimanchePaques.plusDays(1L);
+        final LocalDate lundiPaques = LocalDate.of(year, month, day).plusDays(1L);
+        return new PublicHoliday("Lundi de Pâques",lundiPaques);
     }
 
 
-    private LocalDate getJourAn(final int year) {
-        return LocalDate.of(year, 1, 1);
+    private PublicHoliday getJourAn(final int year) {
+        return new PublicHoliday("Jour de l'an",LocalDate.of(year, 1, 1));
     }
 
 
-    private LocalDate getFeteTravail(final int year) {
-        return LocalDate.of(year, 5, 1);
+    private PublicHoliday getFeteTravail(final int year) {
+        return new PublicHoliday("Fête du travail", LocalDate.of(year, 5, 1));
     }
 
 
-    private LocalDate get8Mai(final int year) {
-        return LocalDate.of(year, 5, 8);
+    private PublicHoliday get8Mai(final int year) {
+        return new PublicHoliday("8 Mai 1945", LocalDate.of(year, 5, 8));
     }
 
 
-    private LocalDate getAscension(final LocalDate lundiPaques) {
-        return lundiPaques.plusDays(38);
+    private PublicHoliday getAscension(final LocalDate dateLundiPaques) {
+        return new PublicHoliday("Ascension", dateLundiPaques.plusDays(38));
     }
 
 
-    private LocalDate getPentecote(final LocalDate lundiPaques) {
-        return lundiPaques.plusDays(49);
+    private PublicHoliday getPentecote(final LocalDate dateLundiPaques) {
+        return new PublicHoliday("Pentecôte", dateLundiPaques.plusDays(49));
     }
 
 
-    private LocalDate getFeteNationale(final int year) {
-        return LocalDate.of(year, 7, 14);
+    private PublicHoliday getFeteNationale(final int year) {
+        return new PublicHoliday("Fête nationale", LocalDate.of(year, 7, 14));
     }
 
 
-    private LocalDate getAssomption(final int year) {
-        return LocalDate.of(year, 8, 15);
+    private PublicHoliday getAssomption(final int year) {
+        return new PublicHoliday("Assomption", LocalDate.of(year, 8, 15));
     }
 
 
-    private LocalDate getToussaint(final int year) {
-        return LocalDate.of(year, 11, 1);
+    private PublicHoliday getToussaint(final int year) {
+        return new PublicHoliday("Toussaint", LocalDate.of(year, 11, 1));
     }
 
 
-    private LocalDate get11Novembre(final int year) {
-        return LocalDate.of(year, 11, 11);
+    private PublicHoliday get11Novembre(final int year) {
+        return new PublicHoliday("Armistice", LocalDate.of(year, 11, 11));
     }
 
 
-    private LocalDate getNoel(final int year) {
-        return LocalDate.of(year, 12, 25);
+    private PublicHoliday getNoel(final int year) {
+        return new PublicHoliday("Noël", LocalDate.of(year, 12, 25));
     }
 }

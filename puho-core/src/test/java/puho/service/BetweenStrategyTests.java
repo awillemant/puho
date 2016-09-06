@@ -4,6 +4,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 import puho.exception.WrongPeriodException;
+import puho.pojo.PublicHoliday;
 import puho.service.strategy.FRBetweenStrategy;
 
 import java.time.LocalDate;
@@ -35,9 +36,9 @@ public class BetweenStrategyTests {
         final int year = 2016;
         AbstractBetweenStrategy strategy = new FRBetweenStrategy();
         //WHEN
-        final Set<LocalDate> publicHolidaysBetween = strategy.getPublicHolidaysBetween(LocalDate.of(year, 3, 1), LocalDate.of(year, 12, 31));
+        final Set<PublicHoliday> publicHolidaysBetween = strategy.getPublicHolidaysBetween(LocalDate.of(year, 3, 1), LocalDate.of(year, 12, 31));
         //THEN
-        assertThat(publicHolidaysBetween).containsExactly(LocalDate.of(year, 6, 12), LocalDate.of(year, 12, 25));
+        assertThat(publicHolidaysBetween).extracting("date").containsExactly(LocalDate.of(year, 6, 12), LocalDate.of(year, 12, 25));
     }
 
     @Test
@@ -45,14 +46,14 @@ public class BetweenStrategyTests {
         //GIVEN
         AbstractBetweenStrategy strategy = new FRBetweenStrategy();
         //WHEN
-        final Set<LocalDate> publicHolidaysBetween = strategy.getPublicHolidaysBetween(LocalDate.of(2015, 1, 1), LocalDate.of(2016, 12, 31));
+        final Set<PublicHoliday> publicHolidaysBetween = strategy.getPublicHolidaysBetween(LocalDate.of(2015, 1, 1), LocalDate.of(2016, 12, 31));
         //THEN
-        assertThat(publicHolidaysBetween).containsExactly(
-                LocalDate.of(2015, 1,1),
-                LocalDate.of(2015, 6,12),
+        assertThat(publicHolidaysBetween).extracting("date").containsExactly(
+                LocalDate.of(2015, 1, 1),
+                LocalDate.of(2015, 6, 12),
                 LocalDate.of(2015, 12, 25),
-                LocalDate.of(2016, 1,1),
-                LocalDate.of(2016, 6,12),
+                LocalDate.of(2016, 1, 1),
+                LocalDate.of(2016, 6, 12),
                 LocalDate.of(2016, 12, 25));
     }
     @Test
@@ -60,9 +61,9 @@ public class BetweenStrategyTests {
         //GIVEN
         AbstractBetweenStrategy strategy = new FRBetweenStrategy();
         //WHEN
-        final Set<LocalDate> publicHolidaysBetween = strategy.getPublicHolidaysBetween(LocalDate.of(2015, 1, 1), LocalDate.of(2017, 6, 15));
+        final Set<PublicHoliday> publicHolidaysBetween = strategy.getPublicHolidaysBetween(LocalDate.of(2015, 1, 1), LocalDate.of(2017, 6, 15));
         //THEN
-        assertThat(publicHolidaysBetween).containsExactly(
+        assertThat(publicHolidaysBetween).extracting("date").containsExactly(
                 LocalDate.of(2015, 1,1),
                 LocalDate.of(2015, 6,12),
                 LocalDate.of(2015, 12, 25),
