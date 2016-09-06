@@ -1,13 +1,13 @@
 package puho.service.strategy;
 
+import puho.pojo.PublicHoliday;
 import puho.service.AbstractByYearStrategy;
 
-import java.time.LocalDate;
 import java.util.List;
 
 public class GBByYearStrategy extends AbstractByYearStrategy{
 
-    @Override protected List<LocalDate> getInternalPublicHolidaysByYear(final int year) {
+    @Override protected List<PublicHoliday> getInternalPublicHolidaysByYear(final int year) {
         return null;
     }
 

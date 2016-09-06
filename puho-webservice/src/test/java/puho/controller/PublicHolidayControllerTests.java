@@ -62,9 +62,10 @@ public class PublicHolidayControllerTests {
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(jsonPath("$", hasSize(11)))
-                .andExpect(jsonPath("$[*].year", contains(2016,2016,2016,2016,2016,2016,2016,2016,2016,2016,2016)))
-                .andExpect(jsonPath("$[*].monthValue", contains(1,3,5,5,5,5,7,8,11,11,12)))
-                .andExpect(jsonPath("$[*].dayOfMonth", contains(1,28,1,5,8,16,14,15,1,11,25)));
+                .andExpect(jsonPath("$[*].date.year", contains(2016,2016,2016,2016,2016,2016,2016,2016,2016,2016,2016)))
+                .andExpect(jsonPath("$[*].date.monthValue", contains(1,3,5,5,5,5,7,8,11,11,12)))
+                .andExpect(jsonPath("$[*].date.dayOfMonth", contains(1,28,1,5,8,16,14,15,1,11,25)))
+                .andExpect(jsonPath("$[*].name", contains("Jour de l'an", "Lundi de Pâques", "Fête du travail", "Ascension", "8 Mai 1945", "Pentecôte", "Fête nationale", "Assomption", "Toussaint", "Armistice", "Noël")));
     }
 
     @Test
@@ -78,9 +79,9 @@ public class PublicHolidayControllerTests {
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(jsonPath("$", hasSize(10)))
-                .andExpect(jsonPath("$[*].year", contains(2015,2015,2015,2015,2015,2016,2016,2016,2016,2016)))
-                .andExpect(jsonPath("$[*].monthValue", contains(7,8,11,11,12,1,3,5,5,5)))
-                .andExpect(jsonPath("$[*].dayOfMonth", contains(14,15,1,11,25,1,28,1,5,8)));
+                .andExpect(jsonPath("$[*].date.year", contains(2015,2015,2015,2015,2015,2016,2016,2016,2016,2016)))
+                .andExpect(jsonPath("$[*].date.monthValue", contains(7,8,11,11,12,1,3,5,5,5)))
+                .andExpect(jsonPath("$[*].date.dayOfMonth", contains(14,15,1,11,25,1,28,1,5,8)));
     }
 
     @Test
