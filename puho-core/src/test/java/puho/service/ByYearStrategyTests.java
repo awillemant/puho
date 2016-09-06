@@ -23,6 +23,7 @@ public class ByYearStrategyTests {
         List<PublicHoliday> puhos = strategy.getPublicHolidaysByYear(1983);
         //THEN
         assertThat(puhos).extracting("date").containsExactly(LocalDate.of(1983,1,1),LocalDate.of(1983,6,12),LocalDate.of(1983,12,25));
+        assertThat(puhos).extracting("name").containsExactly("Jour de l'an", "Fête", "Noël");
     }
 
 }
