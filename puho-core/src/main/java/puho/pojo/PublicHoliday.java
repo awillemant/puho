@@ -4,14 +4,16 @@ import java.time.LocalDate;
 
 public class PublicHoliday implements Comparable<PublicHoliday> {
 
-    private LocalDate date;
-
     private String name;
 
-    public PublicHoliday(String name, LocalDate datePublicHoliday) {
-        this.name = name;
-        this.date = datePublicHoliday;
+    private LocalDate date;
+
+
+    public PublicHoliday(final String nameValue, final LocalDate dateValue) {
+        this.name = nameValue;
+        this.date = dateValue;
     }
+
 
     public LocalDate getDate() {
         return date;
@@ -21,7 +23,7 @@ public class PublicHoliday implements Comparable<PublicHoliday> {
         return name;
     }
     @Override
-    public int compareTo(PublicHoliday o) {
+    public int compareTo(final PublicHoliday o) {
         return this.date.compareTo(o.getDate());
     }
 }
