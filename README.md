@@ -12,6 +12,9 @@ A simple webservice that provides Public Holidays
 ### Other country support ?
 You just have to make a project very similar to the `puho-strategy-fr` one. Once it's compiled into a simple jar, you can relaunch the webservice with a new path in the `loader.path` argument.
 
+### Other server port
+You juste have to execute the jar with the server.port paramater :  `java -Dloader.path="puho-strategy-fr/target" -Dserver.port=8081 -jar puho-webservice/target/puho-webservice-1.0-SNAPSHOT.jar`
+
 ### ReST API
 Two HTTP calls are possible :
 - `GET /<COUNTRY ISO CODE>/yyyy` to get all the public holidays for a given year.
